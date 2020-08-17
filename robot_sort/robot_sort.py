@@ -94,10 +94,38 @@ class SortingRobot:
 
     def sort(self):
         """
-        Sort the robot's list.
+        Sort the robot's list. bubble sort will probably work
+        Use light to indicate a swap has occured
+        Robot picks up an item and traverses throught the list and repalces 
+        item if held item is greater than the current item.
         """
-        # Fill this out
-        pass
+        while self._light == "OFF":
+            self.set_light_on()
+            while self.can_move_left() is True:
+                self.move_left()
+            while self.can_move_right() is True:
+                self.swap_item()
+                self.move_right()
+                # if held item is greater than next swap and go back left to swap out None
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.set_light_off()
+                # move back to beggining on list
+                self.move_left()
+                # get None item
+                self.swap_item()
+                # starta gain
+                self.move_right()
+
+"""
+A more efficient way might be:
+
+        Robot moves right picks up first item. While moving right, If the held time is > current item, swap items.
+        when robot can't move right. move left 
+        while moving left if the held item is greater than current continue to move. 
+        If held item is smaller than the left current item, swap item.
+        recursive call until either case is no longer true?
+"""
 
 
 if __name__ == "__main__":
